@@ -25,7 +25,7 @@
         ansible_become: yes
         ansible_become_method: runas
         ansible_become_user: ansible_user
-        ansible_become_password: Pwd=222222
+        ansible_become_password: Very-Secure-Password
         ansible_remote_tmp: 'c:\Temp'
     - name: Extract to C:\inetpub\wwwroot\HelloWorld
       win_unzip:

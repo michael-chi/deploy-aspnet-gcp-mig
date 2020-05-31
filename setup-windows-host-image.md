@@ -62,22 +62,11 @@ $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 
 powershell.exe -ExecutionPolicy ByPass -File $file
 
-# winrm enumerate winrm/config/Listener
-# $selector_set = @{
-#     Address = "*"
-#     Transport = "HTTPS"
-# }
-# $value_set = @{
-#     CertificateThumbprint = "<Certificate Thumbprint>"
-# }
-# New-WSManInstance -ResourceURI "winrm/config/Listener" -SelectorSet $selector_set -ValueSet $value_set 
-
 winrm set winrm/config/client/auth '@{Basic="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 ```
 
 -   Once completed, configure and install other application dependencies and run `GCESyspre` when finished. This will automatically initialize and shutdown your machine.
 
--   Go back to GCP console, optionally delete machine and keep boot disk, create an Image from that Disk, then create an Instance Template from that Image.
-
--   In order to have better manage our machines, we add a network tag `win-iis` to the Instance Template, so that every machines provisioned based on this template shares same network tag, later we will use this tag to tell Ansible which machines to deploy new configurations.
+-   Go back to GCP console, optionally delete machine and keep boot disk, create an Image from that Disk, then create an Instance Template from that Image. 
+    - In order to have better manage our machines, we add a network tag `win-iis` to the Instance Template, so that every machines provisioned based on this template shares same network tag, later we will use this tag to tell Ansible which machines to deploy new configurations.
