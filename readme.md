@@ -34,6 +34,11 @@ How can we keep our release pace without having to waste too much time of our en
 
 We will use both push and pull mode that mentioned in above [paper](https://cloud.google.com/solutions/deploy-dotnet-applications). Below is a high-level architecture of this solution. Buid and Testing parts are not included.
 
+An high-level architecture we will be building showing below
+
+<img src="./img/ansible-win-mig-arch.png" style="width:50%;height:50%"/>
+
+
 ## What and Why are we choosing these services ?
 
 Several different technologies are involved here
