@@ -1,0 +1,48 @@
+- hosts: all
+  tasks:
+#    - name: Install PSCX
+#      win_psmodule:
+#        name: Pscx
+#        state: present
+    - name: Remove Default Web Site
+      win_iis_website:
+        name: "Default Web Site"
+        state: absent
+    - name: Create temp folder
+      win_file:
+        path: C:\temp
+        state: directory
+    - name: Create web site directory
+      win_file:
+        path: C:\inetpub\wwwroot\HelloWorld
+        state: directory
+    - name: Copy Remote File
+      win_copy:
+        src: \\10.140.0.2\Temp\HelloWorld.zip
+        dest: C:\temp\
+        remote_src: True
+      vars:
+        ansible_become: yes
+        ansible_become_method: runas
+        ansible_become_user: ansible_user
+        ansible_become_password: Pwd=222222
+        ansible_remote_tmp: 'c:\Temp'
+    - name: Extract to C:\inetpub\wwwroot\HelloWorld
+      win_unzip:
+        src: C:\temp\HelloWorld.zip
+        dest: C:\inetpub\wwwroot\HelloWorld
+        # recurse: yes
+        # remote_src: yes
+    - name: Install Web Server
+      win_feature:
+        name: "Web-Server"
+        state: present
+        restart: no
+        include_sub_features: yes
+        include_management_tools: no
+    - name: create new website
+      win_iis_website:
+        name: "Ansible Test Site"
+        state: started
+        port: 80
+        physical_path: C:\inetpub\wwwroot\HelloWorld

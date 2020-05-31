@@ -22,7 +22,9 @@ We will be building a Windows based image with below features enabled
 
 Create a Windows machines on GCP then RDP into the machine.
 
--   Create a local user if your machine will not join Windows AD. Add this newly created user to `Administrators` group and note its passeword. Ansible will be using this user to talk our Windows hosts.
+-   Create a local user if your machine will not join Windows AD. Add this newly created user to `Administrators` group and note its passeword. Ansible will be using this user to talk our Windows hosts. In my demo I named this user `ansible_user`
+
+-   [Optional]Install [Python](https://www.python.org/downloads/windows/) version 3.7 or below if you will use GCP extensions in playbooks such as `gs_storage`
 
 -   Now we want to install WinRM feature to the machine. WinRM is used by Ansible to talk to Windows hosts we want to manage.
 
