@@ -70,3 +70,9 @@ winrm set winrm/config/service/auth '@{Basic="true"}'
 
 -   Go back to GCP console, optionally delete machine and keep boot disk, create an Image from that Disk, then create an Instance Template from that Image. 
     - In order to have better manage our machines, we add a network tag `win-iis` to the Instance Template, so that every machines provisioned based on this template shares same network tag, later we will use this tag to tell Ansible which machines to deploy new configurations.
+
+
+#### Next Steps
+
+[Setup Ansible Workstation to manage Managed Instnace Group](./setup-ubuntu-ansible-server.md)
+

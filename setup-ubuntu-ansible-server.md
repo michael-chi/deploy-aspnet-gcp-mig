@@ -151,4 +151,6 @@ Your folder structure should look like this now.
         |-- group_vars
             |-- tag_win-iis
 
- 
+ #### Next Steps
+
+ [Working with Playbooks](./setup-playbooks.md)

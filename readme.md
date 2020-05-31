@@ -60,3 +60,19 @@ Next,I will be detailing steps to setup this solution.
 [Setup Ansible Workstation to manage Managed Instnace Group](./setup-ubuntu-ansible-server.md)
 
 [Working with Playbooks](./setup-playbooks.md)
+
+
+## References
+---
+
+[Ansible Dynamic Inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html)
+
+[Ansible Google Cloud Platform Guide](https://docs.ansible.com/ansible/latest/scenario_guides/guide_gce.html)
+
+[Setup Ansible Windows hosts](https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html)
+
+[Using Ansible and Windows](https://docs.ansible.com/ansible/latest/user_guide/windows_usage.html)
+
+[win_iis_weebsite - Configures a IIS Web Site](https://docs.ansible.com/ansible/latest/modules/win_iis_website_module.html)
+
+[Ansible - GCP dynamic inventory 2.0 - by Artem Yakimenko](https://medium.com/@Temikus/ansible-gcp-dynamic-inventory-2-0-7f3531b28434)
