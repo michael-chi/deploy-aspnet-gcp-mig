@@ -36,7 +36,7 @@ We will use both push and pull mode that mentioned in above [paper](https://clou
 
 An high-level architecture we will be building showing below
 
-<img src="./img/ansible-win-mig-arch.png" style="width:50%;height:50%"/>
+<img src="./img/ansible-win-mig-arch.png" style="width:40%;height:40%"/>
 
 
 ## What and Why are we choosing these services ?
@@ -49,6 +49,8 @@ Several different technologies are involved here
 |Managed Instance Group|Auto-Scaling<br/>Start up Script to pull new version when provisiong|
 
 -   Ansible is a popular configuration management tool which works with Linux and Windows. It does not require agents installed on target machines. In our case, we also want to leverage its push deployment model.
+
+-   Since the application leverage auto-scaling mechanism to handle incoming traffic, machines can be provisioned and deleted, we need a way to dynamically detect newly created machines instead of having client machines register themselves to a server. Ansible in this scenario provides dynamic inventory addressed this concern.
 
 Next,I will be detailing steps to setup this solution.
 
