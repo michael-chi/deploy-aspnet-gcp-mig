@@ -4,18 +4,24 @@
 #      win_psmodule:
 #        name: Pscx
 #        state: present
+#--- Ensure Default Web Site is removed
     - name: Remove Default Web Site
       win_iis_website:
         name: "Default Web Site"
         state: absent
+#--- Create C:\temp is not already, we use this folder to store zip files
     - name: Create temp folder
       win_file:
         path: C:\temp
         state: directory
+#--- Create a folder that will be used as our website root
     - name: Create web site directory
       win_file:
         path: C:\inetpub\wwwroot\HelloWorld
         state: directory
+#--- Copy zip file from remote folder
+#  * ansible_* variables are to connect to remote fileshare
+#  * ansible_remote_tmp is requred, the folder has to be accessible to ansible_user
     - name: Copy Remote File
       win_copy:
         src: \\10.140.0.2\Temp\HelloWorld.zip
@@ -27,12 +33,14 @@
         ansible_become_user: ansible_user
         ansible_become_password: Very-Secure-Password
         ansible_remote_tmp: 'c:\Temp'
+#--- Unzip downlaoded file to our website folder
     - name: Extract to C:\inetpub\wwwroot\HelloWorld
       win_unzip:
         src: C:\temp\HelloWorld.zip
         dest: C:\inetpub\wwwroot\HelloWorld
         # recurse: yes
         # remote_src: yes
+#--- Ensure Web Server feature exists
     - name: Install Web Server
       win_feature:
         name: "Web-Server"
@@ -40,6 +48,7 @@
         restart: no
         include_sub_features: yes
         include_management_tools: no
+#--- Create new Web Site
     - name: create new website
       win_iis_website:
         name: "Ansible Test Site"
