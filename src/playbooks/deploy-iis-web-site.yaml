@@ -1,0 +1,19 @@
+- hosts: all 
+  tasks:
+    - name: Create directory structure
+      win_file:
+        path: C:\inetpub\wwwroot\2
+        state: directory
+    - name: Install Web Server
+      win_feature:
+        name: "Web-Server"
+        state: present
+        restart: no
+        include_sub_features: yes
+        include_management_tools: no
+    - name: create new website
+      win_iis_website:
+        name: "Ansible Test Site"
+        state: started
+        port: 8081
+        physical_path: C:\inetpub\wwwroot\2
