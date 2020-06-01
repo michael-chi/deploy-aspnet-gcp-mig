@@ -61,6 +61,12 @@ Next,I will be detailing steps to setup this solution.
 
 [Working with Playbooks](./setup-playbooks.md)
 
+## Considerations
+---
+
+While building a solution to release to Managed Instance Group, keep in mind that each machine that been provisioned by AutoScaler takes time to become ready.
+
+If your startup script does a bunch of things such as creating websites, install required dependencies, update OS...etc; it can take longer than expected before your machine can serve incoming traffic.
 
 ## References
 ---

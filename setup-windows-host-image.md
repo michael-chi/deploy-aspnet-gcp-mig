@@ -71,7 +71,24 @@ winrm set winrm/config/service/auth '@{Basic="true"}'
 -   Go back to GCP console, optionally delete machine and keep boot disk, create an Image from that Disk, then create an Instance Template from that Image. 
     - In order to have better manage our machines, we add a network tag `win-iis` to the Instance Template, so that every machines provisioned based on this template shares same network tag, later we will use this tag to tell Ansible which machines to deploy new configurations.
 
--   To have Ansible be able to talk to our Windows hosts and managed IIS websites, `WebAdministration` Powershell modules must exists in Windows hosts. You can manually enable `Web Server` role and create a template image based on that, or use Ansible playbook to install it.
+-   To have Ansible be able to talk to our Windows hosts and managed IIS websites, below tasks are required in Windows Server
+
+    - Install `Web-Server` Role, ensure `WebAdministration` Powershell module is installed
+    
+    - Ensure Firewall on Windows Machines allow HTTP and HTTPS traffic
+
+### Create Instance Template
+
+Once we have everything setup and configured in the Windows machine, I can now make it an Instance Template.
+
+The Template must have below configuration
+
+|Configuration|Value|Comments|
+|:--:|:--:|:--:|
+|Network tag|`win-iis`|My Ansible playbooks apply to machines with this tag only|
+|`windows-startup-script-url`|`gs://my-bucket/init.ps1`|Newly provisioned machines use this script to initialize itself|
+
+A very simple Powershell script which does what Ansible playbook does has been created as a [sample](./src/powershell/init.ps1)
 
 #### Next Steps
 
