@@ -1,5 +1,18 @@
 - hosts: all
   tasks:
+#--- Ensure Web Server feature exists
+    - name: Install Web Server
+      win_feature:
+        name: "Web-Server"
+        state: present
+        restart: no
+        include_sub_features: yes
+        include_management_tools: no
+#---  This is required since we want to manage IIS WebSites
+    - name: Ensure WebAdministration Exists
+      win_psmodule:
+        name: WebAdministration
+        state: present
 #    - name: Install PSCX
 #      win_psmodule:
 #        name: Pscx
@@ -40,14 +53,7 @@
         dest: C:\inetpub\wwwroot\HelloWorld
         # recurse: yes
         # remote_src: yes
-#--- Ensure Web Server feature exists
-    - name: Install Web Server
-      win_feature:
-        name: "Web-Server"
-        state: present
-        restart: no
-        include_sub_features: yes
-        include_management_tools: no
+
 #--- Create new Web Site
     - name: create new website
       win_iis_website:
