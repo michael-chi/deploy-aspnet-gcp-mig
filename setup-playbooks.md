@@ -108,3 +108,7 @@ ok: [ansible-group-20200529-001-r76g]
 PLAY RECAP *******************************************************************************************************************************************************************
 ansible-group-20200529-001-r76g : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 ```
+
+## References
+---
+[GCP supported Ansible filters](https://docs.ansible.com/ansible/latest/plugins/inventory/gcp_compute.html)

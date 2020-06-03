@@ -32,8 +32,7 @@ Create a Windows machines on GCP then RDP into the machine.
 
 [Ansible document](https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html#upgrading-powershell-and-net-framework)provides detailed instruction to setup Windows hosts, below is a summary of Powershell coded from official Andible document.
 
-```powershell
-
+<!-- 
 $url = "https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Upgrade-PowerShell.ps1"
 $file = "$env:temp\Upgrade-PowerShell.ps1"
 $username = "ansible_user"
@@ -52,15 +51,28 @@ $reg_winlogon_path = "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogo
 Set-ItemProperty -Path $reg_winlogon_path -Name AutoAdminLogon -Value 0
 Remove-ItemProperty -Path $reg_winlogon_path -Name DefaultUserName -ErrorAction SilentlyContinue
 Remove-ItemProperty -Path $reg_winlogon_path -Name DefaultPassword -ErrorAction SilentlyContinue
+ -->
 
+```powershell
 
 # Setup WinRM
 $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
 $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted 
 powershell.exe -ExecutionPolicy ByPass -File $file
+
+# winrm enumerate winrm/config/Listener
+# $trumbprint="329EB46A0D76C646CB0C69587DDB5C5A0CA2A550"
+# $selector_set = @{
+#     Address = "*"
+#     Transport = "HTTPS"
+# }
+# $value_set = @{
+#     CertificateThumbprint = $trumbprint
+# }
+# New-WSManInstance -ResourceURI "winrm/config/Listener" -SelectorSet $selector_set -ValueSet $value_set
 
 winrm set winrm/config/client/auth '@{Basic="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
