@@ -1,0 +1,18 @@
+- hosts: all
+  tasks:
+#--- Create C:\temp is not already, we use this folder to store zip files
+    - name: Create temp folder
+      win_file:
+        path: C:\temp
+        state: directory
+    - name: RoboCopy
+      win_robocopy:
+        src: \\10.100.8.8\Share\
+        dest: C:\temp
+        flags: /e /xo
+      vars:
+        ansible_become: yes
+        ansible_become_method: runas
+        ansible_become_user: ansible_user
+        ansible_become_password: P@ssw0rd1
+        ansible_remote_tmp: 'c:\Temp'
